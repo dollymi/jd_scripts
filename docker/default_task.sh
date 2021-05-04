@@ -112,6 +112,12 @@ EOF
 
 fi
 
+<<<<<<< HEAD
+=======
+#echo "暂停更新配置，不要尝试删掉这个文件，你的容器可能会起不来"
+#echo '' >/scripts/logs/pull.lock
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 echo "定义定时任务合并处理用到的文件路径..."
 defaultListFile="/scripts/docker/$DEFAULT_LIST_FILE"
 echo "默认文件定时任务文件路径为 ${defaultListFile}"
@@ -244,6 +250,12 @@ echo "第11步将仓库的docker_entrypoint.sh脚本更新至系统/usr/local/bi
 cat /scripts/docker/docker_entrypoint.sh >/usr/local/bin/docker_entrypoint.sh
 
 echo "发送通知"
+<<<<<<< HEAD
 export NOTIFY_CONTENT="2021-03-21更新 增加bot交互，spnode指令，功能是否开启自动根据你的配置判断，详见 https://gitee.com/lxk0301/jd_docker/pulls/18"
 cd /scripts/docker
 node notify_docker_user.js
+=======
+export NOTIFY_CONTENT="升级容器内部node版本(v14.5.0)"
+cd /scripts/docker
+node notify_docker_user.js
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7

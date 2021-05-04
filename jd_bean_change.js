@@ -2,7 +2,11 @@
  * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-11-01 16:25:41
  * @Last Modified by:   lxk0301
+<<<<<<< HEAD
  * @Last Modified time: 2021-03-14 15:25:41
+=======
+ * @Last Modified time: 2021-04-22 15:25:41
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
  */
 /*
 京东资产变动通知脚本：https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bean_change.js
@@ -20,7 +24,11 @@
 cron "2 9 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bean_change.js, tag=京东资产变动通知
 =============Surge===========
 [Script]
+<<<<<<< HEAD
 京东资产变动通知 = type=cron,cronexp=2 9 * * *,wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bean_change.js
+=======
+京东资产变动通知 = type=cron,cronexp="2 9 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bean_change.js
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 
 ============小火箭=========
 京东资产变动通知 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bean_change.js, cronexpr="2 9 * * *", timeout=3600, enable=true
@@ -104,14 +112,22 @@ async function bean() {
   let page = 1, t = 0, yesterdayArr = [];
   do {
     let response = await getJingBeanBalanceDetail(page);
+<<<<<<< HEAD
     console.log(`第${page}页: ${JSON.stringify(response)}`);
+=======
+    // console.log(`第${page}页: ${JSON.stringify(response)}`);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     if (response && response.code === "0") {
       page++;
       let detailList = response.detailList;
       if (detailList && detailList.length > 0) {
         for (let item of detailList) {
           const date = item.date.replace(/-/g, '/') + "+08:00";
+<<<<<<< HEAD
           if (tm <= new Date(date).getTime() && new Date(date).getTime() < tm1) {
+=======
+          if (tm <= new Date(date).getTime() && new Date(date).getTime() < tm1 && (!item['eventMassage'].includes("退还") && !item['eventMassage'].includes('扣赠'))) {
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
             //昨日的
             yesterdayArr.push(item);
           } else if (tm > new Date(date).getTime()) {
@@ -125,6 +141,16 @@ async function bean() {
         $.msg($.name, ``, `账号${$.index}：${$.nickName}\n${$.errorMsg}`);
         t = 1;
       }
+<<<<<<< HEAD
+=======
+    } else if (response && response.code === "3") {
+      console.log(`cookie已过期，或者填写不规范，跳出`)
+      t = 1;
+    } else {
+      console.log(`未知情况：${JSON.stringify(response)}`);
+      console.log(`未知情况，跳出`)
+      t = 1;
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     }
   } while (t === 0);
   for (let item of yesterdayArr) {
@@ -148,7 +174,11 @@ function TotalBean() {
         Accept: "*/*",
         Connection: "keep-alive",
         Cookie: cookie,
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         "Accept-Language": "zh-cn",
         "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
         "Accept-Encoding": "gzip, deflate, br"
@@ -189,7 +219,11 @@ function getJingBeanBalanceDetail(page) {
       "url": `https://api.m.jd.com/client.action?functionId=getJingBeanBalanceDetail`,
       "body": `body=${escape(JSON.stringify({"pageSize": "20", "page": page.toString()}))}&appid=ld`,
       "headers": {
+<<<<<<< HEAD
         'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         'Host': 'api.m.jd.com',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Cookie': cookie,
@@ -275,7 +309,11 @@ function redPacket() {
         'Referer': 'https://st.jingxi.com/my/redpacket.shtml?newPg=App&jxsid=16156262265849285961',
         'Accept-Encoding': 'gzip, deflate, br',
         "Cookie": cookie,
+<<<<<<< HEAD
         'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.get(options, (err, resp, data) => {
@@ -286,7 +324,11 @@ function redPacket() {
         } else {
           if (data) {
             data = JSON.parse(data).data
+<<<<<<< HEAD
             $.jxRed = 0, $.jsRed = 0, $.jdRed = 0, $.jxRedExpire = 0, $.jsRedExpire = 0, $.jdRedExpire = 0;
+=======
+            $.jxRed = 0, $.jsRed = 0, $.jdRed = 0, $.jdhRed = 0, $.jxRedExpire = 0, $.jsRedExpire = 0, $.jdRedExpire = 0, $.jdhRedExpire = 0;
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
             let t = new Date()
             t.setDate(t.getDate() + 1)
             t.setHours(0, 0, 0, 0)
@@ -302,6 +344,14 @@ function redPacket() {
                 if (vo['endTime'] === t) {
                   $.jsRedExpire += parseFloat(vo.balance)
                 }
+<<<<<<< HEAD
+=======
+              } else if (vo.orgLimitStr && vo.orgLimitStr.includes("京东健康")) {
+                $.jdhRed += parseFloat(vo.balance)
+                if (vo['endTime'] === t) {
+                  $.jdhRedExpire += parseFloat(vo.balance)
+                }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
               } else {
                 $.jdRed += parseFloat(vo.balance)
                 if (vo['endTime'] === t) {
@@ -312,10 +362,17 @@ function redPacket() {
             $.jxRed = $.jxRed.toFixed(2)
             $.jsRed = $.jsRed.toFixed(2)
             $.jdRed = $.jdRed.toFixed(2)
+<<<<<<< HEAD
             $.balance = data.balance
             $.expiredBalance = data.expiredBalance || 0;
             $.message += `\n当前总红包：${$.balance}(今日总过期${($.jxRedExpire + $.jsRedExpire + $.jdRedExpire).toFixed(2)})元 🧧\n京喜红包：${$.jxRed}(今日将过期${$.jxRedExpire.toFixed(2)})元 🧧\n极速版红包：${$.jsRed}(今日将过期${$.jsRedExpire.toFixed(2)})元 🧧\n京东红包：${$.jdRed}(今日将过期${$.jdRedExpire.toFixed(2)})元 🧧`;
             // if ($.expiredBalance > 0) $.message += `\n今明二日过期：${$.expiredBalance}元红包🧧`;
+=======
+            $.jdhRed = $.jdhRed.toFixed(2)
+            $.balance = data.balance
+            $.expiredBalance = ($.jxRedExpire + $.jsRedExpire + $.jdRedExpire).toFixed(2)
+            $.message += `\n当前总红包：${$.balance}(今日总过期${$.expiredBalance})元 🧧\n京喜红包：${$.jxRed}(今日将过期${$.jxRedExpire.toFixed(2)})元 🧧\n极速版红包：${$.jsRed}(今日将过期${$.jsRedExpire.toFixed(2)})元 🧧\n京东红包：${$.jdRed}(今日将过期${$.jdRedExpire.toFixed(2)})元 🧧\n健康红包：${$.jdhRed}(今日将过期${$.jdhRedExpire.toFixed(2)})元 🧧`;
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
           } else {
             console.log(`京东服务器返回空数据`)
           }

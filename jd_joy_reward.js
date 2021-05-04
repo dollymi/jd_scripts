@@ -53,6 +53,23 @@ if ($.isNode()) {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://jdjoy.jd.com';
+<<<<<<< HEAD
+=======
+Date.prototype.Format = function (fmt) { //author: meizz
+  var o = {
+    "M+": this.getMonth() + 1, //月份
+    "d+": this.getDate(), //日
+    "h+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "S": this.getMilliseconds() //毫秒
+  };
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
+}
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg('【京东账号一】宠汪汪积分兑换奖品失败', '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -75,6 +92,10 @@ const JD_API_HOST = 'https://jdjoy.jd.com';
         continue
       }
       // console.log(`本地时间与京东服务器时间差(毫秒)：${await get_diff_time()}`);
+<<<<<<< HEAD
+=======
+      console.log(`脚本开始请求时间 ${(new Date()).Format("yyyy-MM-dd hh:mm:ss | S")}`);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       await joyReward();
     }
   }
@@ -145,7 +166,13 @@ async function joyReward() {
             if (!saleInfoId) return
             // console.log(`当前账户积分:${data.coin}\n当前京豆库存:${leftStock}\n满足兑换条件,开始为您兑换京豆\n`);
             console.log(`\n您设置的兑换${giftValue}京豆库存充足,开始为您兑换${giftValue}京豆\n`);
+<<<<<<< HEAD
             await exchange(saleInfoId, 'pet');
+=======
+            console.log(`脚本开始兑换${rewardNum}京豆时间 ${(new Date()).Format("yyyy-MM-dd hh:mm:ss | S")}`);
+            await exchange(saleInfoId, 'pet');
+            console.log(`请求兑换API后时间 ${(new Date()).Format("yyyy-MM-dd hh:mm:ss | S")}`);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
             if ($.exchangeRes && $.exchangeRes.success) {
               if ($.exchangeRes.errorCode === 'buy_success') {
                 // console.log(`兑换${giftValue}成功,【宠物等级】${data.level}\n【消耗积分】${salePrice}个\n【剩余积分】${data.coin - salePrice}个\n`)
@@ -158,9 +185,15 @@ async function joyReward() {
                   $.ctrTemp = `${jdNotify}` === 'false';
                 }
                 if ($.ctrTemp) {
+<<<<<<< HEAD
                   $.msg($.name, ``, `【京东账号${$.index}】${$.nickName}\n【${giftValue}京豆】兑换成功\n【积分详情】消耗积分 ${salePrice}`);
                   if ($.isNode()) {
                     allMessage += `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【积分详情】消耗积分 ${salePrice}${$.index !== cookiesArr.length ? '\n\n' : ''}`
+=======
+                  $.msg($.name, ``, `【京东账号${$.index}】${$.nickName}\n【${giftValue}京豆】兑换成功🎉\n【积分详情】消耗积分 ${salePrice}`);
+                  if ($.isNode()) {
+                    allMessage += `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功🎉\n【积分详情】消耗积分 ${salePrice}${$.index !== cookiesArr.length ? '\n\n' : ''}`
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
                     // await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}`);
                   }
                 }
@@ -215,7 +248,11 @@ function getExchangeRewards() {
         "reqSource": "h5",
         "Connection": "keep-alive",
         "Accept": "*/*",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         "Referer": "https://jdjoy.jd.com/pet/index",
         "Accept-Language": "zh-cn",
         "Accept-Encoding": "gzip, deflate, br"
@@ -260,7 +297,11 @@ function exchange(saleInfoId, orderSource) {
         "Origin": "https://jdjoy.jd.com",
         "reqSource": "h5",
         "Connection": "keep-alive",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         "Referer": "https://jdjoy.jd.com/pet/index",
         "Content-Length": "10",
         "Cookie": cookie
@@ -298,7 +339,11 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.post(options, (err, resp, data) => {

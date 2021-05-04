@@ -2,7 +2,11 @@
 jd宠汪汪 搬的https://github.com/uniqueque/QuantumultX/blob/4c1572d93d4d4f883f483f907120a75d925a693e/Script/jd_joy.js
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 IOS用户支持京东双账号,NodeJs用户支持N个京东账号
+<<<<<<< HEAD
 更新时间：2021-2-27
+=======
+更新时间：2021-3-39
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 活动入口：京东APP我的-更多工具-宠汪汪
 建议先凌晨0点运行jd_joy.js脚本获取狗粮后，再运行此脚本(jd_joy_steal.js)可偷好友积分，6点运行可偷好友狗粮
 feedCount:自定义 每次喂养数量; 等级只和喂养次数有关，与数量无关
@@ -99,7 +103,11 @@ async function jdJoy() {
     if ($.getPetTaskConfigRes.success) {
       if ($.isNode()) {
         if (process.env.JOY_FEED_COUNT) {
+<<<<<<< HEAD
           if ([10, 20, 40, 80].indexOf(process.env.JOY_FEED_COUNT * 1) > -1) {
+=======
+          if ([0, 10, 20, 40, 80].indexOf(process.env.JOY_FEED_COUNT * 1) > -1) {
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
             FEED_NUM = process.env.JOY_FEED_COUNT ? process.env.JOY_FEED_COUNT * 1 : FEED_NUM;
           } else {
             console.log(`您输入的 JOY_FEED_COUNT 为非法数字，请重新输入`);
@@ -322,7 +330,11 @@ async function petTask() {
           const body = {
             "marketLink": scanMarketItem.marketLink,
             "taskType": "ScanMarket",
+<<<<<<< HEAD
             "reqSource": "weapp"
+=======
+            //"reqSource": "weapp"
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
           };
           const scanMarketRes = await scanMarket('scan', body);
           console.log(`逛会场-${scanMarketItem.marketName}结果::${JSON.stringify(scanMarketRes)}`)
@@ -462,7 +474,11 @@ function scanMarket(type, body, cType = 'application/json') {
     const reqSource = 'weapp';
     let opt = {
       // url: "//jdjoy.jd.com/common/pet/getPetTaskConfig?reqSource=h5",
+<<<<<<< HEAD
       url: `//draw.jdfcloud.com/common/pet/${type}?reqSource=h5`,
+=======
+      url: `//draw.jdfcloud.com/common/pet/${type}?reqSource=weapp`,
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       method: "POST",
       data: body,
       credentials: "include",
@@ -650,6 +666,10 @@ function appGetPetTaskConfig() {
 function feedPets(feedNum) {
   return new Promise(resolve => {
     console.log(`您设置的喂食数量:${FEED_NUM}g\n`);
+<<<<<<< HEAD
+=======
+    if (FEED_NUM === 0) { console.log(`跳出喂食`);resolve();return }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     console.log(`实际的喂食数量:${feedNum}g\n`);
     // const url = `${weAppUrl}/feed?feedCount=${feedNum}&reqSource=weapp`;
     const host = `draw.jdfcloud.com`;
@@ -1008,7 +1028,11 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.post(options, (err, resp, data) => {
@@ -1050,7 +1074,11 @@ function taskUrl(url, Host, reqSource) {
       'Connection': 'keep-alive',
       'Content-Type': 'application/json',
       'Referer': 'https://jdjoy.jd.com/pet/index',
+<<<<<<< HEAD
       'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+      'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       'Accept-Language': 'zh-cn',
       'Accept-Encoding': 'gzip, deflate, br',
     }
@@ -1062,7 +1090,11 @@ function taskPostUrl(url, body, reqSource, Host, ContentType) {
     body: body,
     headers: {
       'Cookie': cookie,
+<<<<<<< HEAD
       'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+      'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       'reqSource': reqSource,
       'Content-Type': ContentType,
       'Host': Host,

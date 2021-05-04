@@ -2,7 +2,11 @@
  * @Author: LXK9301 https://github.com/LXK9301
  * @Date: 2020-11-10 14:07:07 
  * @Last Modified by: LXK9301
+<<<<<<< HEAD
  * @Last Modified time: 2020-11-23 12:27:16
+=======
+ * @Last Modified time: 2021-4-26 12:27:16
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
  */
 /*
 活动入口：京东金融养猪猪
@@ -16,6 +20,7 @@
 ===============Quantumultx===============
 [task_local]
 #京东金融养猪猪
+<<<<<<< HEAD
 12 * * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdyz.png, enabled=true
 
 ================Loon==============
@@ -31,6 +36,23 @@ cron "12 * * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd
 
 const $ = new Env('金融养猪');
 let cookiesArr = [], cookie = '';
+=======
+12 0-23/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdyz.png, enabled=true
+
+================Loon==============
+[Script]
+cron "12 0-23/6 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪
+
+===============Surge=================
+京东金融养猪猪 = type=cron,cronexp="12 0-23/6 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js
+
+============小火箭=========
+京东金融养猪猪 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, cronexpr="12 0-23/6 * * *", timeout=3600, enable=true
+ */
+
+const $ = new Env('金融养猪');
+let cookiesArr = [], cookie = '', allMessage = '';
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 const JD_API_HOST = 'https://ms.jr.jd.com/gw/generic/uc/h5/m';
 const MISSION_BASE_API = `https://ms.jr.jd.com/gw/generic/mission/h5/m`;
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -68,6 +90,13 @@ if ($.isNode()) {
       await jdPigPet();
     }
   }
+<<<<<<< HEAD
+=======
+  if (allMessage && new Date().getHours() % 6 === 0) {
+    if ($.isNode()) await notify.sendNotify($.name, allMessage);
+    $.msg($.name, '', allMessage);
+  }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -76,6 +105,7 @@ if ($.isNode()) {
       $.done();
     })
 async function jdPigPet() {
+<<<<<<< HEAD
   await pigPetLogin();
   if (!$.hasPig) return
   await pigPetSignIndex();
@@ -86,6 +116,22 @@ async function jdPigPet() {
   await pigPetMissionList();
   await missions();
   await pigPetUserBag();
+=======
+  try {
+    await pigPetLogin();
+    if (!$.hasPig) return
+    await pigPetSignIndex();
+    await pigPetSign();
+    await pigPetOpenBox();
+    await pigPetLotteryIndex();
+    await pigPetLottery();
+    await pigPetMissionList();
+    await missions();
+    await pigPetUserBag();
+  } catch (e) {
+    $.logErr(e)
+  }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 }
 async function pigPetLottery() {
   if ($.currentCount > 0) {
@@ -244,6 +290,13 @@ function pigPetLogin() {
                 $.hasPig = data.resultData.resultData.hasPig;
                 if (!$.hasPig) {
                   console.log(`\n京东账号${$.index} ${$.nickName} 未开启养猪活动,请手动去京东金融APP开启此活动\n`)
+<<<<<<< HEAD
+=======
+                  return
+                }
+                if (data.resultData.resultData.wished) {
+                  allMessage += `京东账号${$.index} ${$.nickName || $.UserName}\n${data.resultData.resultData.wishAward.name}已可兑换${$.index !== cookiesArr.length ? '\n\n' : ''}`
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
                 }
               } else {
                 console.log(`Login其他情况：${JSON.stringify(data)}`)
@@ -536,7 +589,11 @@ function queryMissionReceiveAfterStatus(missionId) {
         "Cookie": cookie,
         "Origin": "https://jdjoy.jd.com",
         "Referer": "https://jdjoy.jd.com/",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.get(options, (err, resp, data) => {
@@ -585,7 +642,11 @@ function finishReadMission(missionId) {
         "Cookie": cookie,
         "Origin": "https://jdjoy.jd.com",
         "Referer": "https://jdjoy.jd.com/",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.get(options, (err, resp, data) => {
@@ -631,7 +692,11 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.post(options, (err, resp, data) => {

@@ -2,7 +2,11 @@
  * @Author: LXK9301 https://github.com/LXK9301
  * @Date: 2020-11-01 13:43:28 
  * @Last Modified by:   LXK9301
+<<<<<<< HEAD
  * @Last Modified time: 2020-11-03 13:43:28 
+=======
+ * @Last Modified time: 2021-4-22 13:43:28
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
  */
 /*
 小米运动修改微信支付宝运动步数
@@ -54,7 +58,11 @@ function getToken() {
 }
 
 async function start() {
+<<<<<<< HEAD
   login_token = $.getdata('xmSportsToken') ? $.getdata('xmSportsToken') : login_token;
+=======
+  login_token = $.isNode() ? (process.env.XM_SPORT_TOKEN ? process.env.XM_SPORT_TOKEN : login_token) : ($.getdata('xmSportsToken') ? $.getdata('xmSportsToken') : login_token);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   // console.log(`login_token:::${login_token}`)
   if (login_token) {
     await get_app_token(login_token);

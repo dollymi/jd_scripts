@@ -1,6 +1,10 @@
 /*
 宠汪汪喂食(如果喂食80g失败，降级一个档次喂食（40g）,依次类推),三餐，建议一小时运行一次
+<<<<<<< HEAD
 更新时间：2020-11-03
+=======
+更新时间：2021-4-24
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 活动入口：京东APP我的-更多工具-宠汪汪
 支持京东多个账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
@@ -60,6 +64,7 @@ let FEED_NUM = ($.getdata('joyFeedCount') * 1) || 10;   //喂食数量默认10g,
       $.index = i + 1;
       $.isLogin = true;
       $.nickName = '';
+<<<<<<< HEAD
       await TotalBean();
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
@@ -70,11 +75,28 @@ let FEED_NUM = ($.getdata('joyFeedCount') * 1) || 10;   //喂食数量默认10g,
         }
         continue
       }
+=======
+      await $.wait(100);
+      // await TotalBean();
+      // console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
+      // if (!$.isLogin) {
+      //   $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
+      //
+      //   if ($.isNode()) {
+      //     await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+      //   }
+      //   continue
+      // }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       message = '';
       subTitle = '';
       if ($.isNode()) {
         if (process.env.JOY_FEED_COUNT) {
+<<<<<<< HEAD
           if ([10, 20, 40, 80].indexOf(process.env.JOY_FEED_COUNT * 1) > -1) {
+=======
+          if ([0, 10, 20, 40, 80].indexOf(process.env.JOY_FEED_COUNT * 1) > -1) {
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
             FEED_NUM = process.env.JOY_FEED_COUNT ? process.env.JOY_FEED_COUNT * 1 : FEED_NUM;
           } else {
             console.log(`您输入的 JOY_FEED_COUNT 为非法数字，请重新输入`);
@@ -103,6 +125,10 @@ function showMsg() {
 function feedPets(feedNum) {
   return new Promise(resolve => {
     console.log(`您设置的喂食数量::${FEED_NUM}g\n`);
+<<<<<<< HEAD
+=======
+    if (FEED_NUM === 0) { console.log(`跳出喂食`);resolve();return }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     console.log(`实际的喂食数量::${feedNum}g\n`);
     let opt = {
       url: `//jdjoy.jd.com/common/pet/feed?feedCount=${feedNum}&reqSource=h5`,
@@ -122,7 +148,11 @@ function feedPets(feedNum) {
         'Connection': 'keep-alive',
         'Content-Type': 'application/json',
         'Referer': 'https://jdjoy.jd.com/pet/index',
+<<<<<<< HEAD
         'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         'Accept-Language': 'zh-cn',
         'Accept-Encoding': 'gzip, deflate, br',
       }
@@ -189,7 +219,11 @@ function ThreeMeals() {
         'Connection': 'keep-alive',
         'Content-Type': 'application/json',
         'Referer': 'https://jdjoy.jd.com/pet/index',
+<<<<<<< HEAD
         'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         'Accept-Language': 'zh-cn',
         'Accept-Encoding': 'gzip, deflate, br',
       }
@@ -234,7 +268,11 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.post(options, (err, resp, data) => {

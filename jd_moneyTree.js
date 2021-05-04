@@ -1,7 +1,12 @@
 /*
 京东摇钱树 ：https://gitee.com/lxk0301/jd_scripts/raw/master/jd_moneyTree.js
+<<<<<<< HEAD
 更新时间：2020-11-16
 活动入口：京东APP我的-更多工具-摇钱树
+=======
+更新时间：2021-4-23
+活动入口：京东APP我的-更多工具-摇钱树，[活动链接](https://uua.jr.jd.com/uc-fe-wxgrowing/moneytree/index/?channel=yxhd)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 京东摇钱树支持京东双账号
 注：如果使用Node.js, 需自行安装'crypto-js,got,http-server,tough-cookie'模块. 例: npm install crypto-js http-server tough-cookie got --save
 ===============Quantumultx===============
@@ -26,7 +31,11 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
 //IOS等用户直接用NobyDa的jd cookie
+<<<<<<< HEAD
 let cookiesArr = [], cookie = '';
+=======
+let cookiesArr = [], cookie = '', allMsg = ``;
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -36,8 +45,13 @@ if ($.isNode()) {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 
+<<<<<<< HEAD
 let jdNotify = true;//是否开启静默运行，默认true开启
 let sellFruit = false;//是否卖出金果得到金币，默认'false'不卖
+=======
+let jdNotify = false;//是否开启静默运行，默认false开启
+let sellFruit = true;//是否卖出金果得到金币，默认'true'卖金果
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 const JD_API_HOST = 'https://ms.jr.jd.com/gw/generic/uc/h5/m';
 let userInfo = null, taskInfo = [], message = '', subTitle = '', fruitTotal = 0;
 !(async () => {
@@ -52,7 +66,11 @@ let userInfo = null, taskInfo = [], message = '', subTitle = '', fruitTotal = 0;
       $.isLogin = true;
       $.nickName = '';
       await TotalBean();
+<<<<<<< HEAD
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
+=======
+      console.log(`\n****开始【京东账号${$.index}】${$.nickName || $.UserName}****\n`);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
 
@@ -66,6 +84,16 @@ let userInfo = null, taskInfo = [], message = '', subTitle = '', fruitTotal = 0;
       await jd_moneyTree();
     }
   }
+<<<<<<< HEAD
+=======
+  if (allMsg) {
+    jdNotify = $.isNode() ? (process.env.MONEYTREE_NOTIFY_CONTROL ? process.env.MONEYTREE_NOTIFY_CONTROL : jdNotify) : ($.getdata('jdMoneyTreeNotify') ? $.getdata('jdMoneyTreeNotify') : jdNotify);
+    if (!jdNotify || jdNotify === 'false') {
+      if ($.isNode()) await notify.sendNotify($.name, allMsg);
+      $.msg($.name, '', allMsg)
+    }
+  }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -73,6 +101,10 @@ let userInfo = null, taskInfo = [], message = '', subTitle = '', fruitTotal = 0;
     .finally(() => {
       $.done();
     })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 async function jd_moneyTree() {
   try {
     const userRes = await user_info();
@@ -85,13 +117,17 @@ async function jd_moneyTree() {
     await stealFriendFruit()
 
     $.log(`\n${message}\n`);
+<<<<<<< HEAD
     if (!jdNotify || jdNotify === 'false') {
       $.msg($.name, subTitle, message);
     }
+=======
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   } catch (e) {
     $.logErr(e)
   }
 }
+<<<<<<< HEAD
 function user_info() {
   console.log('初始化摇钱树个人信息');
   const params = {
@@ -100,6 +136,24 @@ function user_info() {
     "channelLV":"",
     "source":0,
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+
+function user_info() {
+  console.log('初始化摇钱树个人信息');
+  const params = {
+    "sharePin": "",
+    "shareType": 1,
+    "channelLV": "",
+    "source": 2,
+    "riskDeviceParam": {
+      "eid": "",
+      "fp": "",
+      "sdkToken": "",
+      "token": "",
+      "jstub": "",
+      "appType": "2",
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);
   // await $.wait(5000); //歇口气儿, 不然会报操作频繁
@@ -138,7 +192,11 @@ function user_info() {
           }
         }
       } catch (eor) {
+<<<<<<< HEAD
         $.msg("摇钱树-初始化个人信息" + eor.name + "‼️", JSON.stringify(eor), eor.message)
+=======
+        $.logErr(eor, err)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       } finally {
         resolve(userInfo)
       }
@@ -150,10 +208,33 @@ function dayWork() {
   console.log(`开始做任务userInfo了\n`)
   return new Promise(async resolve => {
     const data = {
+<<<<<<< HEAD
       "source":0,
       "linkMissionIds":["666","667"],
       "LinkMissionIdValues":[7,7],
       "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+      "source": 0,
+      "linkMissionIds": ["666", "667"],
+      "LinkMissionIdValues": [7, 7],
+      "riskDeviceParam": {
+        "eid": "",
+        "dt": "",
+        "ma": "",
+        "im": "",
+        "os": "",
+        "osv": "",
+        "ip": "",
+        "apid": "",
+        "ia": "",
+        "uu": "",
+        "cv": "",
+        "nt": "",
+        "at": "1",
+        "fp": "",
+        "token": ""
+      }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     };
     let response = await request('dayWork', data);
     // console.log(`获取任务的信息:${JSON.stringify(response)}\n`)
@@ -196,12 +277,20 @@ function dayWork() {
         // 分享任务
         if (item.workStatus === 0) {
           // share();
+<<<<<<< HEAD
           const data = {"source":0,"workType":2,"opType":1};
+=======
+          const data = {"source": 0, "workType": 2, "opType": 1};
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
           //开始分享
           // let shareRes = await request('doWork', data);
           let shareRes = await share(data);
           console.log(`开始分享的动作:${JSON.stringify(shareRes)}`);
+<<<<<<< HEAD
           const b = {"source":0,"workType":2,"opType":2};
+=======
+          const b = {"source": 0, "workType": 2, "opType": 2};
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
           // let shareResJL = await request('doWork', b);
           let shareResJL = await share(b);
           console.log(`领取分享后的奖励:${JSON.stringify(shareResJL)}`)
@@ -216,7 +305,11 @@ function dayWork() {
         // yield setUserLinkStatus(task.mid);
         let aa = await setUserLinkStatus(task.mid);
         console.log(`aaa${JSON.stringify(aa)}`);
+<<<<<<< HEAD
       } else if (task.mid && task.workStatus === 1){
+=======
+      } else if (task.mid && task.workStatus === 1) {
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         console.log(`workStatus === 1开始领取浏览后的奖励:mid:${task.mid}`);
         let receiveAwardRes = await receiveAward(task.mid);
         console.log(`领取浏览任务奖励成功：${JSON.stringify(receiveAwardRes)}`)
@@ -229,7 +322,10 @@ function dayWork() {
 }
 
 function harvest() {
+<<<<<<< HEAD
   console.log(`收获的操作:${JSON.stringify(userInfo)}\n`)
+=======
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   if (!userInfo) return
   const data = {
     "source": 2,
@@ -251,12 +347,20 @@ function harvest() {
   return new Promise((rs, rj) => {
     request('harvest', data).then((harvestRes) => {
       if (harvestRes && harvestRes.resultCode === 0 && harvestRes.resultData.code === '200') {
+<<<<<<< HEAD
         console.log(`收获金果成功:${JSON.stringify(harvestRes)}\n`)
+=======
+        console.log(`\n收获金果成功:${JSON.stringify(harvestRes)}\n`)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         let data = harvestRes.resultData.data;
         message += `【距离${data.treeInfo.level + 1}级摇钱树还差】${data.treeInfo.progressLeft}\n`;
         fruitTotal = data.treeInfo.fruit;
       } else {
+<<<<<<< HEAD
         console.log(`收获金果异常:${JSON.stringify(harvestRes)}`)
+=======
+        console.log(`\n收获金果异常:${JSON.stringify(harvestRes)}`)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
       rs()
       // gen.next();
@@ -271,12 +375,28 @@ function harvest() {
   //   }
   // })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 //卖出金果，得到金币
 function sell() {
   return new Promise((rs, rj) => {
     const params = {
       "source": 2,
+<<<<<<< HEAD
       "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+      "jtCount": 7.000000000000001,
+      "riskDeviceParam": {
+        "eid": "",
+        "fp": "",
+        "sdkToken": "",
+        "token": "",
+        "jstub": "",
+        "appType": 2,
+      }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     }
     params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);//这一步，不可省略，否则提交会报错（和login接口一样）
     console.log(`目前金果数量${fruitTotal}`)
@@ -286,12 +406,36 @@ function sell() {
       rs()
       return
     }
+<<<<<<< HEAD
     if (fruitTotal > 380) {
       request('sell', params).then((sellRes) => {
         console.log(`卖出金果结果:${JSON.stringify(sellRes)}\n`)
         rs()
       })
     } else {
+=======
+    if (fruitTotal >= 8000 * 7) {
+      if (userInfo['jtRest'] === 0) {
+        console.log(`\n今日已卖出5.6万金果(已达上限)，获得0.07金贴\n`)
+        rs()
+        return
+      }
+      request('sell', params).then((sellRes) => {
+        if (sellRes && sellRes['resultCode'] === 0) {
+          if (sellRes['resultData']['code'] === '200') {
+            if (sellRes['resultData']['data']['sell'] === 0) {
+              console.log(`卖出金果成功，获得0.07金贴\n`);
+              allMsg += `账号${$.index}：${$.nickName || $.UserName}\n今日成功卖出5.6万金果，获得0.07金贴${$.index !== cookiesArr.length ? '\n\n' : ''}`
+            } else {
+              console.log(`卖出金果失败:${JSON.stringify(sellRes)}\n`)
+            }
+          }
+        }
+        rs()
+      })
+    } else {
+      console.log(`当前金果数量不够兑换 0.07金贴\n`);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       rs()
     }
     // request('sell', params).then(response => {
@@ -303,11 +447,16 @@ function sell() {
   //   gen.next();
   // })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 //获取金币和金果数量
 function myWealth() {
   return new Promise((resolve) => {
     const params = {
       "source": 2,
+<<<<<<< HEAD
       "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
     }
     params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);//这一步，不可省略，否则提交会报错（和login接口一样）
@@ -316,24 +465,81 @@ function myWealth() {
         console.log(`金币数量和金果：：${JSON.stringify(res)}`);
         message += `【我的金果数量】${res.resultData.data.gaAmount}\n`;
         message += `【我的金币数量】${res.resultData.data.gcAmount}\n`;
+=======
+      "riskDeviceParam": {
+        "eid": "",
+        "dt": "",
+        "ma": "",
+        "im": "",
+        "os": "",
+        "osv": "",
+        "ip": "",
+        "apid": "",
+        "ia": "",
+        "uu": "",
+        "cv": "",
+        "nt": "",
+        "at": "1",
+        "fp": "",
+        "token": ""
+      }
+    }
+    params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);//这一步，不可省略，否则提交会报错（和login接口一样）
+    request('myWealth', params).then(res => {
+      if (res && res.resultCode === 0 && res.resultData.code === '200') {
+        console.log(`金贴和金果数量：：${JSON.stringify(res)}`);
+        message += `【我的金果数量】${res.resultData.data.gaAmount}\n`;
+        message += `【我的金贴数量】${res.resultData.data.gcAmount / 100}\n`;
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
       resolve();
     })
   });
 }
+<<<<<<< HEAD
 function sign() {
   console.log('开始三餐签到')
   const data = {"source":2,"workType":1,"opType":2};
+=======
+
+function sign() {
+  console.log('开始三餐签到')
+  const data = {"source": 2, "workType": 1, "opType": 2};
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   return new Promise((rs, rj) => {
     request('doWork', data).then(response => {
       rs(response);
     })
   })
 }
+<<<<<<< HEAD
 function signIndex() {
   const params = {
     "source":0,
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+
+function signIndex() {
+  const params = {
+    "source": 0,
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   return new Promise((rs, rj) => {
     request('signIndex', params).then(response => {
@@ -341,6 +547,10 @@ function signIndex() {
     })
   })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 function signEveryDay() {
   return new Promise(async (resolve) => {
     try {
@@ -367,11 +577,36 @@ function signEveryDay() {
     }
   })
 }
+<<<<<<< HEAD
 function signOne(signDay) {
   const params = {
     "source":0,
     "signDay": signDay,
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+
+function signOne(signDay) {
+  const params = {
+    "source": 0,
+    "signDay": signDay,
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   return new Promise((rs, rj) => {
     request('signOne', params).then(response => {
@@ -379,6 +614,7 @@ function signOne(signDay) {
     })
   })
 }
+<<<<<<< HEAD
 // 领取七日签到后的奖励(店铺优惠券)
 function getSignAward() {
   const params = {
@@ -386,6 +622,32 @@ function getSignAward() {
     "awardType": 2,
     "deviceRiskParam": 1,
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+
+// 领取七日签到后的奖励(店铺优惠券)
+function getSignAward() {
+  const params = {
+    "source": 2,
+    "awardType": 2,
+    "deviceRiskParam": 1,
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   return new Promise((rs, rj) => {
     request('getSignAward', params).then(response => {
@@ -393,6 +655,10 @@ function getSignAward() {
     })
   })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 // 浏览任务
 async function setUserLinkStatus(missionId) {
   let index = 0;
@@ -401,7 +667,27 @@ async function setUserLinkStatus(missionId) {
       "missionId": missionId,
       "pushStatus": 1,
       "keyValue": index,
+<<<<<<< HEAD
       "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+      "riskDeviceParam": {
+        "eid": "",
+        "dt": "",
+        "ma": "",
+        "im": "",
+        "os": "",
+        "osv": "",
+        "ip": "",
+        "apid": "",
+        "ia": "",
+        "uu": "",
+        "cv": "",
+        "nt": "",
+        "at": "1",
+        "fp": "",
+        "token": ""
+      }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     }
     let response = await request('setUserLinkStatus', params)
     console.log(`missionId为${missionId}：：第${index + 1}次浏览活动完成: ${JSON.stringify(response)}`);
@@ -420,16 +706,44 @@ async function setUserLinkStatus(missionId) {
   })
   // gen.next();
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 // 领取浏览后的奖励
 function receiveAward(mid) {
   if (!mid) return
   mid = mid + "";
   const params = {
+<<<<<<< HEAD
     "source":0,
     "workType": 7,
     "opType": 2,
     "mid": mid,
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+    "source": 0,
+    "workType": 7,
+    "opType": 2,
+    "mid": mid,
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   return new Promise((rs, rj) => {
     request('doWork', params).then(response => {
@@ -437,6 +751,10 @@ function receiveAward(mid) {
     })
   })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 function share(data) {
   if (data.opType === 1) {
     console.log(`开始做分享任务\n`)
@@ -448,6 +766,7 @@ function share(data) {
       rs(response);
     })
   })
+<<<<<<< HEAD
   // const data = 'reqData={"source":0,"workType":2,"opType":1}';
   // request('doWork', data).then(res => {
   //   console.log(`分享111:${JSON.stringify(res)}`)
@@ -468,6 +787,10 @@ function msgControl() {
     resolve();
   })
 }
+=======
+}
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 async function stealFriendFruit() {
   await friendRank();
   if ($.friendRankList && $.friendRankList.length > 0) {
@@ -494,12 +817,36 @@ async function stealFriendFruit() {
     console.log(`您暂无好友，故跳过`);
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 //获取好友列表API
 async function friendRank() {
   await $.wait(1000); //歇口气儿, 不然会报操作频繁
   const params = {
     "source": 2,
+<<<<<<< HEAD
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);//这一步，不可省略，否则提交会报错（和login接口一样）
   return new Promise((resolve, reject) => {
@@ -518,20 +865,48 @@ async function friendRank() {
           }
         }
       } catch (eor) {
+<<<<<<< HEAD
         $.msg("摇钱树-初始化个人信息" + eor.name + "‼️", JSON.stringify(eor), eor.message)
+=======
+        $.logErr(eor, err)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       } finally {
         resolve()
       }
     })
   })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 // 进入好友房间API
 async function friendTreeRoom(friendPin) {
   await $.wait(1000); //歇口气儿, 不然会报操作频繁
   const params = {
     "source": 2,
     "friendPin": friendPin,
+<<<<<<< HEAD
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);//这一步，不可省略，否则提交会报错（和login接口一样）
   return new Promise((resolve, reject) => {
@@ -550,13 +925,21 @@ async function friendTreeRoom(friendPin) {
           }
         }
       } catch (eor) {
+<<<<<<< HEAD
         $.msg("摇钱树-初始化个人信息" + eor.name + "‼️", JSON.stringify(eor), eor.message)
+=======
+        $.logErr(eor, err)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       } finally {
         resolve()
       }
     })
   })
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 //偷好友金果API
 async function stealFruit(friendPin, stoleId) {
   await $.wait(1000); //歇口气儿, 不然会报操作频繁
@@ -564,7 +947,27 @@ async function stealFruit(friendPin, stoleId) {
     "source": 2,
     "friendPin": friendPin,
     "stoleId": stoleId,
+<<<<<<< HEAD
     "riskDeviceParam":{"eid":"","dt":"","ma":"","im":"","os":"","osv":"","ip":"","apid":"","ia":"","uu":"","cv":"","nt":"","at":"1","fp":"","token":""}
+=======
+    "riskDeviceParam": {
+      "eid": "",
+      "dt": "",
+      "ma": "",
+      "im": "",
+      "os": "",
+      "osv": "",
+      "ip": "",
+      "apid": "",
+      "ia": "",
+      "uu": "",
+      "cv": "",
+      "nt": "",
+      "at": "1",
+      "fp": "",
+      "token": ""
+    }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);//这一步，不可省略，否则提交会报错（和login接口一样）
   return new Promise((resolve, reject) => {
@@ -582,13 +985,18 @@ async function stealFruit(friendPin, stoleId) {
           }
         }
       } catch (eor) {
+<<<<<<< HEAD
         $.msg("摇钱树-初始化个人信息" + eor.name + "‼️", JSON.stringify(eor), eor.message)
+=======
+        $.logErr(eor, err)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       } finally {
         resolve(data)
       }
     })
   })
 }
+<<<<<<< HEAD
 function TotalBean() {
   return new Promise(async resolve => {
     const options = {
@@ -637,6 +1045,14 @@ async function request(function_id, body = {}) {
   await $.wait(1000); //歇口气儿, 不然会报操作频繁
   return new Promise((resolve, reject) => {
     $.post(taskurl(function_id,body), (err, resp, data) => {
+=======
+
+
+async function request(function_id, body = {}) {
+  await $.wait(1000); //歇口气儿, 不然会报操作频繁
+  return new Promise((resolve, reject) => {
+    $.post(taskurl(function_id, body), (err, resp, data) => {
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       try {
         if (err) {
           console.log("\n摇钱树京东API请求失败 ‼️‼️");
@@ -660,6 +1076,7 @@ async function request(function_id, body = {}) {
 
 function taskurl(function_id, body) {
   return {
+<<<<<<< HEAD
     url: JD_API_HOST + '/' + function_id + '?_=' + new Date().getTime()*1000,
     body: `reqData=${function_id === 'harvest' || function_id === 'login' || function_id === 'signIndex' || function_id === 'signOne' || function_id === 'setUserLinkStatus' || function_id === 'dayWork' || function_id === 'getSignAward' || function_id === 'sell' || function_id === 'friendRank' || function_id === 'friendTree' || function_id === 'stealFruit' ? encodeURIComponent(JSON.stringify(body)) : JSON.stringify(body)}`,
     headers: {
@@ -676,6 +1093,68 @@ function taskurl(function_id, body) {
     }
   }
 }
+=======
+    url: JD_API_HOST + '/' + function_id + '?_=' + new Date().getTime() * 1000,
+    body: `reqData=${function_id === 'harvest' || function_id === 'login' || function_id === 'signIndex' || function_id === 'signOne' || function_id === 'setUserLinkStatus' || function_id === 'dayWork' || function_id === 'getSignAward' || function_id === 'sell' || function_id === 'friendRank' || function_id === 'friendTree' || function_id === 'stealFruit' ? encodeURIComponent(JSON.stringify(body)) : JSON.stringify(body)}`,
+    headers: {
+      'Accept': `application/json`,
+      'Origin': `https://uua.jr.jd.com`,
+      'Accept-Encoding': `gzip, deflate, br`,
+      'Cookie': cookie,
+      'Content-Type': `application/x-www-form-urlencoded;charset=UTF-8`,
+      'Host': `ms.jr.jd.com`,
+      'Connection': `keep-alive`,
+      'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+      'Referer': `https://uua.jr.jd.com/uc-fe-wxgrowing/moneytree/index`,
+      'Accept-Language': `zh-cn`
+    }
+  }
+}
+
+function TotalBean() {
+  return new Promise(async resolve => {
+    const options = {
+      url: "https://me-api.jd.com/user_new/info/GetJDUserInfoUnion",
+      headers: {
+        Host: "me-api.jd.com",
+        Accept: "*/*",
+        Connection: "keep-alive",
+        Cookie: cookie,
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+        "Accept-Language": "zh-cn",
+        "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
+        "Accept-Encoding": "gzip, deflate, br"
+      }
+    }
+    $.get(options, (err, resp, data) => {
+      try {
+        if (err) {
+          $.logErr(err)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data['retcode'] === "1001") {
+              $.isLogin = false; //cookie过期
+              return;
+            }
+            if (data['retcode'] === "0" && data.data && data.data.hasOwnProperty("userInfo")) {
+              $.nickName = data.data.userInfo.baseInfo.nickname;
+            }
+          } else {
+            $.log('京东服务器返回空数据');
+          }
+        }
+      } catch (e) {
+        $.logErr(e)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+
+
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 function jsonParse(str) {
   if (typeof str == "string") {
     try {

@@ -744,10 +744,17 @@ function jsonParse(str) {
     }
   }
 }
+<<<<<<< HEAD
 function updateShareCodes(url = 'https://gitee.com/lxk0301/updateTeam/raw/master/shareCodes/jd_818.json') {
   return new Promise(resolve => {
     $.get({url,
       headers:{"User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")}
+=======
+function updateShareCodes(url = 'https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_818.json') {
+  return new Promise(resolve => {
+    $.get({url,
+      headers:{"User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")}
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     }, async (err, resp, data) => {
       try {
         if (err) {

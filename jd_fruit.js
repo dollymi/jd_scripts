@@ -1,6 +1,10 @@
 /*
 东东水果:脚本更新地址 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js
+<<<<<<< HEAD
 更新时间：2021-2-27
+=======
+更新时间：2021-4-9
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 活动入口：京东APP我的-更多工具-东东农场
 东东农场活动链接：https://h5.m.jd.com/babelDiy/Zeus/3KSjXqQabiTuD1cJ28QskrpWoBKT/index.html
 已支持IOS双京东账号,Node.js支持N个京东账号
@@ -124,8 +128,15 @@ async function jdFruit() {
     }
   } catch (e) {
     console.log(`任务执行异常，请检查执行日志 ‼️‼️`);
+<<<<<<< HEAD
     message = `任务执行异常，请检查执行日志 ‼️‼️`;
     $.logErr(e);
+=======
+    $.logErr(e);
+    const errMsg = `京东账号${$.index} ${$.nickName || $.UserName}\n任务执行异常，请检查执行日志 ‼️‼️`;
+    if ($.isNode()) await notify.sendNotify(`${$.name}`, errMsg);
+    $.msg($.name, '', `${errMsg}`)
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
   }
   await showMsg();
 }
@@ -825,7 +836,10 @@ async function doFriendsWater() {
           }
         }
       });
+<<<<<<< HEAD
       //TODO ,发现bug,github action运行发现有些账号第一次没有给3个好友浇水
+=======
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       console.log(`需要浇水的好友列表shareCodes:${JSON.stringify(needWaterFriends)}`);
       let waterFriendsCount = 0, cardInfoStr = '';
       for (let index = 0; index < needWaterFriends.length; index ++) {
@@ -894,8 +908,13 @@ async function receiveFriendInvite() {
       continue
     }
     await inviteFriend(code);
+<<<<<<< HEAD
     // console.log(`接收邀请成为好友结果:${JSON.stringify($.inviteFriendRes.helpResult)}`)
     if ($.inviteFriendRes.helpResult.code === '0') {
+=======
+    // console.log(`接收邀请成为好友结果:${JSON.stringify($.inviteFriendRes)}`)
+    if ($.inviteFriendRes && $.inviteFriendRes.helpResult && $.inviteFriendRes.helpResult.code === '0') {
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       console.log(`接收邀请成为好友结果成功,您已成为${$.inviteFriendRes.helpResult.masterUserInfo.nickName}的好友`)
     } else if ($.inviteFriendRes.helpResult.code === '17') {
       console.log(`接收邀请成为好友结果失败,对方已是您的好友`)
@@ -1175,7 +1194,11 @@ async function initForFarm() {
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
         "Content-Type": "application/x-www-form-urlencoded"
       },
       timeout: 10000,
@@ -1273,10 +1296,17 @@ function readShareCode() {
 }
 function shareCodesFormat() {
   return new Promise(async resolve => {
+<<<<<<< HEAD
     // console.log(`第${$.index}个京东账号的助力码:::${jdFruitShareArr[$.index - 1]}`)
     newShareCodes = [];
     if (jdFruitShareArr[$.index - 1]) {
       newShareCodes = jdFruitShareArr[$.index - 1].split('@');
+=======
+    // console.log(`第${$.index}个京东账号的助力码:::${$.shareCodesArr[$.index - 1]}`)
+    newShareCodes = [];
+    if ($.shareCodesArr[$.index - 1]) {
+      newShareCodes = $.shareCodesArr[$.index - 1].split('@');
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     } else {
       console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
       const tempIndex = $.index > shareCodes.length ? (shareCodes.length - 1) : ($.index - 1);
@@ -1310,6 +1340,7 @@ function requireConfig() {
       cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
     }
     console.log(`共${cookiesArr.length}个京东账号\n`)
+<<<<<<< HEAD
     if ($.isNode()) {
       Object.keys(jdFruitShareCodes).forEach((item) => {
         if (jdFruitShareCodes[item]) {
@@ -1350,6 +1381,22 @@ function requireConfig() {
     // console.log(`jdFruitShareArr::${JSON.stringify(jdFruitShareArr)}`)
     // console.log(`jdFruitShareArr账号长度::${jdFruitShareArr.length}`)
     console.log(`您提供了${jdFruitShareArr.length}个账号的农场助力码\n`);
+=======
+    $.shareCodesArr = [];
+    if ($.isNode()) {
+      Object.keys(jdFruitShareCodes).forEach((item) => {
+        if (jdFruitShareCodes[item]) {
+          $.shareCodesArr.push(jdFruitShareCodes[item])
+        }
+      })
+    } else {
+      if ($.getdata('jd_fruit_inviter')) $.shareCodesArr = $.getdata('jd_fruit_inviter').split('\n').filter(item => !!item);
+      console.log(`\nBoxJs设置的${$.name}好友邀请码:${$.getdata('jd_fruit_inviter') ? $.getdata('jd_fruit_inviter') : '暂无'}\n`);
+    }
+    // console.log(`$.shareCodesArr::${JSON.stringify($.shareCodesArr)}`)
+    // console.log(`jdFruitShareArr账号长度::${$.shareCodesArr.length}`)
+    console.log(`您提供了${$.shareCodesArr.length}个账号的农场助力码\n`);
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     resolve()
   })
 }
@@ -1365,7 +1412,11 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       },
       "timeout": 10000,
     }
@@ -1438,7 +1489,11 @@ function taskUrl(function_id, body = {}) {
     url: `${JD_API_HOST}?functionId=${function_id}&appid=wh5&body=${escape(JSON.stringify(body))}`,
     headers: {
       Cookie: cookie,
+<<<<<<< HEAD
       UserAgent: $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+      UserAgent: $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     },
     timeout: 10000,
   }

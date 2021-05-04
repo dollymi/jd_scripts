@@ -6,6 +6,7 @@ if [ -n "$1" ]; then
   run_cmd=$1
 fi
 
+<<<<<<< HEAD
 echo "设定远程仓库地址..."
 cd /scripts
 git remote set-url origin "$REPO_URL"
@@ -15,6 +16,20 @@ git -C /scripts pull --rebase
 echo "npm install 安装最新依赖"
 npm install --prefix /scripts
 
+=======
+if [ -f "/scripts/logs/pull.lock" ]; then
+  echo "存在更新锁定文件，跳过git pull操作..."
+else
+  echo "设定远程仓库地址..."
+  cd /scripts
+  git remote set-url origin "$REPO_URL"
+  git reset --hard
+  echo "git pull拉取最新代码..."
+  git -C /scripts pull --rebase
+  echo "npm install 安装最新依赖"
+  npm install --prefix /scripts
+fi
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 
 # 默认启动telegram交互机器人的条件
 # 确认容器启动时调用的docker_entrypoint.sh

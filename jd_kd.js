@@ -29,7 +29,11 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
 const randomCount = $.isNode() ? 20 : 5;
 //IOS等用户直接用NobyDa的jd cookie
+<<<<<<< HEAD
 let cookiesArr = [], cookie = '', message;
+=======
+let cookiesArr = [], cookie = '', message, allMsg = '';
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -63,9 +67,18 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
         continue
       }
       await userSignIn();
+<<<<<<< HEAD
       await showMsg();
     }
   }
+=======
+      // await showMsg();
+    }
+  }
+  if (allMsg) {
+    $.msg($.name, '', allMsg);
+  }
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -93,11 +106,19 @@ function userSignIn() {
             data = JSON.parse(data);
             if (data.code === 1) {
               console.log(`今日签到成功，获得${data.content[0].title}`)
+<<<<<<< HEAD
               message += `今日签到成功，获得${data.content[0].title} 🐶\n`;
 
             } else if (data.code === -1) {
               console.log(`今日已签到`)
               message += `【签到】失败，今日已签到`;
+=======
+              message += `京东账号${$.index}${$.nickName}\n今日签到成功，获得${data.content[0].title} 🐶\n`;
+              allMsg += message;
+            } else if (data.code === -1) {
+              console.log(`今日已签到`)
+              // message += `【签到】失败，今日已签到`;
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
             } else {
               console.log(`异常：${JSON.stringify(data)}`)
             }
@@ -136,7 +157,11 @@ function taskUrl() {
       'referer': 'https://jingcai-h5.jd.com/',
       'accept-language': 'zh-CN,zh;q=0.9',
       "Cookie": cookie,
+<<<<<<< HEAD
       "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+=======
+      "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
     }
   }
 }
@@ -152,7 +177,11 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+<<<<<<< HEAD
         "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+=======
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+>>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
       }
     }
     $.post(options, (err, resp, data) => {
