@@ -25,9 +25,13 @@
 #超级直播间红包雨(活动时间不定期，出现异常提示请忽略。红包雨期间会正常)
 1,31 0-23/1 * * * node /scripts/jd_live_redrain.js >> /scripts/logs/jd_live_redrain.log 2>&1
 
+<<<<<<< HEAD
 #TCL 活动时间：4.21-5.3日
 10 0,23 * * * node /scripts/jd_tcl.js >> /scripts/logs/jd_tcl.log 2>&1
 >>>>>>> 38ef06e0f37966a6f0d2d9104caf164b2b197ae7
+=======
+
+>>>>>>> 65edb539235fee7cb011b4707c399a0b36265845
 ##############长期活动##############
 # 签到
 7 0,17 * * * cd /scripts && node jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
